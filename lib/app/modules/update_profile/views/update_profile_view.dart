@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -41,6 +43,54 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
               controller: controller.nameC,
               decoration: InputDecoration(
                   labelText: "NAME  ", border: OutlineInputBorder())),
+          SizedBox(height: 20),
+          Text(
+            "photo profile",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GetBuilder<UpdateProfileController>(
+                builder: (c) {
+                  if (c.image != null) {
+                    return ClipOval(
+                        child: Container(
+                      height: 100,
+                      width: 100,
+                      child: Image.file(
+                        File(c.image!.path),
+                        fit: BoxFit.cover,
+                      ),
+                    ));
+                  } else {
+                    if (user["profile"] != null) {
+                      return ClipOval(
+                          child: Container(
+                        height: 100,
+                        width: 100,
+                        child: Image.network(
+                          user["profile"],
+                          fit: BoxFit.cover,
+                        ),
+                      ));
+                    } else {
+                      return Text("no image chosen");
+                    }
+                  }
+                },
+              ),
+              TextButton(
+                onPressed: () {
+                  controller.pickImage();
+                },
+                child: Text("choose"),
+              ),
+            ],
+          ),
           SizedBox(height: 40),
           Obx(() => ElevatedButton(
               onPressed: () async {

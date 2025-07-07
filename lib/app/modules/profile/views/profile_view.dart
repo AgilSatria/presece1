@@ -32,7 +32,7 @@ class ProfileView extends GetView<ProfileController> {
                   Center(
                     child: ClipOval(
                       child: Image.network(
-                        "https://ui-avatars.com/api/?name=${user['name']}",
+                        user["profile"],
                         width: 100,
                         height: 100,
                         fit: BoxFit.cover, // penting agar tidak gepeng
